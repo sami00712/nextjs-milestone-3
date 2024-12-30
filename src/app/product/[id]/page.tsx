@@ -6,7 +6,7 @@ import WishlistButton from '@/components/WishlistButton'
 import { Product } from '@/types'
 
 async function getProduct(id: string): Promise<Product | null> {
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'; 
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'https://sami-nextjs-milestone-3.vercel.app/'; 
   const res = await fetch(`${baseUrl}/api/products`);
   if (!res.ok) {
     throw new Error('Failed to fetch products')
