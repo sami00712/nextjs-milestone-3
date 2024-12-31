@@ -15,7 +15,7 @@ import { Product } from '@/types'
 //   return products.find((p) => p.id === parseInt(id)) || null
 // }
 async function getProduct(id: string): Promise<Product> {
-  const res = await fetch(`/api/products/${id}`, { cache: 'no-store' });
+  const res = await fetch(`/api/products/`, { cache: 'no-store' });
   if (!res.ok) {
     throw new Error('Failed to fetch product');
   }
