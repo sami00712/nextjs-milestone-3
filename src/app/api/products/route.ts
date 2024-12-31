@@ -23,7 +23,26 @@ const products = [
   { id: 20, name: 'Smartwatch', price: 149.99, image: '/products/smartwatch.jpg', description: 'Fitness tracker smartwatch', color: 'Black', reviews: 4.7 },
 ];
 
-export async function GET() {
+export async function GET(request: Request) {
+  const url = new URL(request.url);
+  const id = url.pathname.split('/').pop();
+
+  if (id && id !== 'products') {
+    const product = products.find(p => p.id === parseInt(id));
+    if (product) {
+      return NextResponse.json(product);
+    } else {
+      return NextResponse.json({ error: 'Product not found' }, { status: 404 });
+    }
+  }
+
   return NextResponse.json(products);
+}
+
+export async function POST(request: Request) {
+  const product = await request.json();
+  // In a real application, you would add the product to a database here
+  products.push({ ...product, id: products.length + 1 });
+  return NextResponse.json(product, { status: 201 });
 }
 
