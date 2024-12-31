@@ -4,27 +4,22 @@ import { Star } from 'lucide-react'
 import AddToCartButton from '@/components/AddToCartButton'
 import WishlistButton from '@/components/WishlistButton'
 import { Product } from '@/types'
+import { useEffect } from 'react'
 
-// async function getProduct(id: string): Promise<Product | null> {
-//   const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'https://sami-nextjs-milestone-3.vercel.app/'; 
-//   const res = await fetch(`${baseUrl}/api/products`);
-//   if (!res.ok) {
-//     throw new Error('Failed to fetch products')
-//   }
-//   const products: Product[] = await res.json()
-//   return products.find((p) => p.id === parseInt(id)) || null
-// }
-async function getProduct(id: string): Promise<Product> {
-  const res = await fetch(`/api/products/`, { cache: 'no-store' });
+async function getProduct(): Promise<Product> {
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'
+  const res = await fetch(`${apiUrl}/api/products`, { cache: 'no-store' })
   if (!res.ok) {
-    throw new Error('Failed to fetch product');
+    throw new Error('Failed to fetch products')
   }
-  return res.json();
+  return res.json()
 }
 
 
-export default async function ProductPage({ params }: { params: { id: string } }) {
-  const product = await getProduct(params.id)
+
+
+export default async function ProductPage() {
+  const product = await getProduct()
 
   if (!product) {
     notFound()

@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import { NextApiRequest, NextApiResponse } from 'next';
 import { Product } from '@/types';
 const products :Product[]= [
   { id: 1, name: 'Elegant Watch', price: 199.99, image: '/products/watch.jpg', description: 'A stylish watch for any occasion', color: 'Golden', reviews: 4.5 },
@@ -23,8 +23,7 @@ const products :Product[]= [
   { id: 20, name: 'Smartwatch', price: 149.99, image: '/products/smartwatch.jpg', description: 'Fitness tracker smartwatch', color: 'Black', reviews: 4.7 },
 ];
 
-export async function GET() {
-  return NextResponse.json(products);
+export default function handler(req: NextApiRequest, res: NextApiResponse) {
+  res.status(200).json(products);
 }
-
 

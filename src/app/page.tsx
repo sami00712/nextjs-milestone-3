@@ -3,8 +3,10 @@ import { Product } from '@/types'
 import Header from '@/components/Header'
 import Banner from '@/components/Banner'
 
+
 async function getProducts(): Promise<Product[]> {
-  const res = await fetch('http://localhost:3000/api/products', { cache: 'no-store' })
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'
+  const res = await fetch(`${apiUrl}/api/products`, { cache: 'no-store' })
   if (!res.ok) {
     throw new Error('Failed to fetch products')
   }
